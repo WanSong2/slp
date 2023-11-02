@@ -93,8 +93,8 @@ public class RestController {
 		Message message = new Message();
 		HttpHeaders headers= new HttpHeaders();
 		headers.setContentType(new MediaType("application","json",Charset.forName("UTF-8")));
-		message.setStatus(StatusEnum.NOT_FOUND);
-		message.setMessage("성공 코드");
+		message.setStatus(StatusEnum.OK);
+		message.setMessage("성공 코드22");
 		message.setData(author);
 		
 		return new ResponseEntity<Message>(message, headers, HttpStatus.OK);

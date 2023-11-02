@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="database">
+    <select id="getAuthorById" resultType="com.songw.slp.model.Author" parameterType="Integer">
+        SELECT 
+			a.id as id,
+		    a.age as age,
+		    a.name as name,
+		    'Confirmed' as status
+        FROM author a
+        WHERE a.id=#{id}
+        LIMIT 1
+    </select>
+
+    <resultMap id="author" type="HashMap">
+	    <association property="authorVo" javaType="com.songw.slp.model.Author">
+	    	<result property="id" column="id" />
+	    	<result property="age" column="age" />
+	    	<result property="name" column="name" />
+		</association>    
+    	<association property="tutorialVo" javaType="com.songw.slp.model.Tutorial">
+	    	<result property="description" column="description" />
+	    	<result property="title" column="title" />  	
+    	</association>
+    </resultMap>
+    
+    <select id="getAuthorList" resultMap="author">
+		select 
+			a.id as id,
+		    a.age as age,
+		    a.name as name, 
+		    t.description as description,
+		   	t.title as title
+		from 
+			author a
+			left join tutorial t on a.id = t.author_id
+    </select>    
+
+
+	
+	
+	<resultMap type="com.songw.slp.model.Journey" id="journeyList">
+		<id property="journeyNumber" column="journeyNumber" jdbcType="VARCHAR" />
+		<id property="recordLocator" column="recordLocator" jdbcType="VARCHAR" />
+		
+		<collection property="segmentList" ofType="com.songw.slp.model.Segment">
+			<id property="segmentid" column="segmentid" jdbcType="VARCHAR" />
+			<result column="recordLocator" property="recordLocator" jdbcType="VARCHAR" />
+			<result column="origin" property="origin" jdbcType="VARCHAR" />
+			<result column="arrival" property="arrival" jdbcType="VARCHAR" />
+		</collection>
+	
+	</resultMap>
+
+
+
+	
+	<select id="getJourneyList" resultMap="journeyList">
+		select 
+			'1' as segmentid,
+		    'LDAGA' as recordLocator,
+		    '1' as journeyNumber,
+		    'GMP' as origin,
+		    'CJU' as arrival
+		    
+		union
+		
+		select 
+			'2' as segmentid,
+		    'LDAGA' as recordLocator,
+		    '2' as journeyNumber,
+		    'CJU' as origin,
+		    'GMP' as arrival
+		
+		union
+		
+		select 
+			'3' as segmentid,
+		    'ADFGH' as recordLocator,
+		    '1' as journeyNumber,
+		    'ICN' as origin,
+		    'NRT' as arrival
+		    
+		union
+		
+		select 
+			'4' as segmentid,
+		    'ADFGH' as recordLocator,
+		    '2' as journeyNumber,
+		    'NRT' as origin,
+		    'ICN' as arrival
+		
+		union
+		
+		select 
+			'5' as segmentid,
+		    'SDAFA' as recordLocator,
+		    '1' as journeyNumber,
+		    'ICN' as origin,
+		    'KIX' as arrival
+		
+		union
+		
+		select 
+			'6' as segmentid,
+		    'SDAFA' as recordLocator,
+		    '1' as journeyNumber,
+		    'KIX' as origin,
+		    'GUM' as arrival
+		
+		union
+		
+		select 
+			'7' as segmentid,
+		    'SDAFA' as recordLocator,
+		    '2' as journeyNumber,
+		    'GUM' as origin,
+		    'KIX' as arrival
+		
+		union
+		
+		select 
+			'8' as segmentid,
+		    'SDAFA' as recordLocator,
+		    '2' as journeyNumber,
+		    'KIX' as origin,
+		    'ICN' as arrival	
+	</select>
+
+
+    
+</mapper>

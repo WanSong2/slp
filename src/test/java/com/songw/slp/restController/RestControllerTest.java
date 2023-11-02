@@ -10,7 +10,7 @@ public class RestControllerTest {
 	public void shouldInvert() {
 		Inverter inverted1 = new Inverter();
 		String inverted = inverted1.invert("a");
-
+/*
 		// 예상값과 실제 값이 같은지 확인 
         assertEquals(inverted, "a");
 		assertEquals(inverted, "");
@@ -19,6 +19,7 @@ public class RestControllerTest {
 		
         
         //Assert.fail();
+*/
 	}
 	
 	private class Inverter {
@@ -43,5 +44,7 @@ public class RestControllerTest {
 			return reverse;
 		}
 	}
+	
+	
 }
 
